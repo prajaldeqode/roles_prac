@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  vars_files:
+    - secret_vars.yml
+  tasks:
+    - name: Print secret variable
+      debug:
+        msg: "Secret variable is {{ key }}"

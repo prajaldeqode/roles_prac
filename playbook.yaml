@@ -1,0 +1,5 @@
+- name: testing roles
+  hosts: localhost
+  become: true
+  roles:
+    - role: test_role

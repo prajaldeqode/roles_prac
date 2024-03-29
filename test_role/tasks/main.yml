@@ -1,0 +1,34 @@
+---
+# tasks file for test_role
+- name: Update and upgrade Apt
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+    upgrade: yes
+
+- name: Install nginx to system
+  apt:
+    name: "nginx={{nginx_version}}"
+    state: present
+
+- name: Copy nginx Config file to host
+  template:
+    src: templates/nginx.config.j2
+    dest: /etc/nginx/sites-available/default
+
+- name: create link to new cofig to available it
+  file:
+    src: /etc/nginx/sites-available/default
+    dest: /etc/nginx/sites-enabled/default
+    state: link
+
+- name: create nginx directory
+  file:
+    path: "{{nginx_custom_directory}}"
+    state: directory
+
+- name: copy index.html to nginx path
+  copy:
+    src: files/index.html
+    dest: "{{nginx_custom_directory}}/index.html"
+  notify: restart the nginx server

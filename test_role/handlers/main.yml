@@ -1,0 +1,6 @@
+---
+# handlers file for test_role
+- name: restart the nginx service
+  service:
+    name: nginx
+    state: restartedansible-vault create secret_vars.yml
